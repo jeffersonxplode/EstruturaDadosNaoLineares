@@ -28,11 +28,16 @@ namespace TADgrafo
         public void AddAresta(int valor, Vertice vertice)
         {
             
-            Aresta aresta = new Aresta(valor, vertice, this);
+            Aresta aresta = new Aresta(valor, vertice);
             Arestas.Add(aresta);
 
         }
 
+
+        public int Grau()
+        {
+            return Arestas.Count();
+        }
 
 
     }

@@ -19,18 +19,46 @@ namespace TADgrafo
             ListaAdj.AddVertice("V3");
             ListaAdj.AddVertice("V4");
 
-            ListaAdj.ListarVertices();
+            foreach(Vertice x in ListaAdj.ListarVertices())
+            {
+                Console.WriteLine(x.nome);
+            }
+
 
             ListaAdj.AddArestaVertices("V1", "V2", 10);
             ListaAdj.AddArestaVertices("V1", "V3", 20);
             ListaAdj.AddArestaVertices("V2", "V4", 5);
             ListaAdj.AddArestaVertices("V4", "V3", 30);
 
-            ListaAdj.ListVertices("V1");
-            ListaAdj.DeleteVertice("V2");
-            ListaAdj.ListVertices("V1");
+            foreach(Aresta x in ListaAdj.ListArestasVertice("V1"))
+            {
+                Console.WriteLine(x.vertice.nome);
+                Console.WriteLine(x.valor);
+               
+            }
 
-            ListaAdj.ListarVertices();
+            foreach (Aresta x in ListaAdj.ListArestasVertice("V2"))
+            {
+                Console.WriteLine(x.vertice.nome);
+                Console.WriteLine(x.valor);
+
+            }
+
+
+            ListaAdj.DeleteVertice("V2");
+
+            foreach (Aresta x in ListaAdj.ListArestasVertice("V1"))
+            {
+                Console.WriteLine(x.vertice.nome);
+                Console.WriteLine(x.valor);
+
+            }
+
+            foreach (Vertice x in ListaAdj.ListarVertices())
+            {
+                Console.WriteLine(x.nome);
+            }
+
 
             Console.ReadKey();
 

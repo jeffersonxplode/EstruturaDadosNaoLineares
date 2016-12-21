@@ -32,6 +32,7 @@ namespace TADgrafo
             Vertice vertice2 = Listaadjacencia.Find(x => x.nome == Nvertice2);
 
             vertice.AddAresta(valor, vertice2);
+            vertice2.AddAresta(valor, vertice);
 
 
         }
@@ -43,6 +44,10 @@ namespace TADgrafo
             Aresta aresta = vertice.GetArestas().Find(x => x.vertice.nome == Nvertice2);
             vertice.GetArestas().Remove(aresta);
 
+            Vertice vertice2 = Listaadjacencia.Find(x => x.nome == Nvertice2);
+            Aresta aresta2 = vertice.GetArestas().Find(x => x.vertice.nome == Nvertice);
+            vertice2.GetArestas().Remove(aresta2);
+
         }
 
         
@@ -51,41 +56,27 @@ namespace TADgrafo
 
             Vertice vertice = Listaadjacencia.Find(x => x.nome == Nvertice);
 
-            foreach (Vertice x in Listaadjacencia)
+            List<Aresta> Arestas = vertice.GetArestas();
+
+            foreach(Aresta x in Arestas)
             {
-                Aresta aresta = x.GetArestas().Find(y => y.vertice.nome == Nvertice);
+                Aresta temp = x.vertice.GetArestas().Find(y => y.vertice.nome == Nvertice);
+                x.vertice.GetArestas().Remove(temp);
 
-                if (aresta != null)
-                {
-                    x.GetArestas().Remove(aresta);
-                }
-
-                else
-                {
-                    continue;
-                }
             }
-
+            
 
             Listaadjacencia.Remove(vertice);
 
         }
 
 
-        public void ListVertices(string Nvertice)
+        public List<Aresta> ListArestasVertice(string Nvertice)
         {
 
             Vertice vertice = Listaadjacencia.Find(x => x.nome == Nvertice);
 
-            Console.WriteLine("Arestas de {0}",vertice.nome);
-
-            foreach (Aresta x in vertice.GetArestas())
-            {
-
-                Console.WriteLine("Aresta com o vertice {0} de valor {1}", x.vertice.nome,x.valor); 
-                
-            }
-
+            return vertice.GetArestas();
             
 
         }
@@ -107,15 +98,38 @@ namespace TADgrafo
         }
 
 
-        public void ListarVertices()
+        public List<Vertice> ListarVertices()
         {
-            Console.WriteLine("Lista de Vertices:");
-            foreach(Vertice x in Listaadjacencia)
-            {
-                Console.WriteLine(x.nome);
-            }
+            return Listaadjacencia;
 
         }
+
+        public bool Euleriano()
+        {
+
+            int valor = 0;
+            
+            foreach(Vertice x in Listaadjacencia)
+            {
+                if (x.Grau() % 2 == 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    valor++;
+                }
+                if(valor > 2)
+                {
+                    return false;
+                    break;
+                }   
+            }
+            return true;
+
+
+        }
+
 
 
 

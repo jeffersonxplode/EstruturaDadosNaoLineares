@@ -11,12 +11,12 @@ namespace TADgrafo
 
         public int valor { get; set; }
         public Vertice vertice { get; set; }
-        public Vertice origem { get; set; }
+        
 
 
-        public Aresta (int valor, Vertice vertice, Vertice origem)
+        public Aresta (int valor, Vertice vertice)
         {
-            this.origem = origem;
+            
             this.valor = valor;
             this.vertice = vertice;
 
