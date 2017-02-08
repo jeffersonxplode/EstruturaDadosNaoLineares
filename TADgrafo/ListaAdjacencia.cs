@@ -122,7 +122,6 @@ namespace TADgrafo
                 if(valor > 2)
                 {
                     return false;
-                    break;
                 }   
             }
             return true;
@@ -130,8 +129,48 @@ namespace TADgrafo
 
         }
 
+        public void Dijkstra(string nvertice)
+        {
 
+            Vertice verticeinicial = Listaadjacencia.Find(x => x.nome == nvertice);
 
+            verticeinicial.custo = 0;
+
+            while (true)
+            {
+
+                List<Vertice> ListaMenores = Listaadjacencia.FindAll(x => x.trancado == false);
+
+                if (ListaMenores.Any() == false)
+                {
+                    break;
+                }
+
+                Vertice MenorVertice = ListaMenores.Find(x => x.custo == ListaMenores.Min(y => y.custo));
+
+                MenorVertice.trancado = true;
+
+                List<Aresta> ArestasMenores = MenorVertice.GetArestas();
+
+                for (int x = 0; x < ArestasMenores.Count();x++)
+                {
+                     
+                    int CustoNovo = ArestasMenores[x].valor + MenorVertice.custo;
+
+                    if (CustoNovo < ArestasMenores[x].vertice.custo)
+                    {
+                        ArestasMenores[x].vertice.custo = CustoNovo;
+
+                    }
+
+                    else
+                    {
+                        continue;
+                    }
+                }
+
+            } 
+        }
 
 
     }

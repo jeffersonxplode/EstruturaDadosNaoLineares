@@ -14,49 +14,28 @@ namespace TADgrafo
 
             ListaAdjacencia ListaAdj = new ListaAdjacencia();
 
+            ListaAdj.AddVertice("V0");
             ListaAdj.AddVertice("V1");
             ListaAdj.AddVertice("V2");
             ListaAdj.AddVertice("V3");
             ListaAdj.AddVertice("V4");
-
-            foreach(Vertice x in ListaAdj.ListarVertices())
-            {
-                Console.WriteLine(x.nome);
-            }
+            ListaAdj.AddVertice("V5");
 
 
-            ListaAdj.AddArestaVertices("V1", "V2", 10);
-            ListaAdj.AddArestaVertices("V1", "V3", 20);
-            ListaAdj.AddArestaVertices("V2", "V4", 5);
-            ListaAdj.AddArestaVertices("V4", "V3", 30);
+            ListaAdj.AddArestaVertices("V0", "V1", 3);
+            ListaAdj.AddArestaVertices("V0", "V2", 4);
+            ListaAdj.AddArestaVertices("V1", "V2", 2);
+            ListaAdj.AddArestaVertices("V1", "V3", 10);
+            ListaAdj.AddArestaVertices("V2", "V4", 4);
+            ListaAdj.AddArestaVertices("V4", "V5", 11);
+            ListaAdj.AddArestaVertices("V3", "V5", 5);
 
-            foreach(Aresta x in ListaAdj.ListArestasVertice("V1"))
-            {
-                Console.WriteLine(x.vertice.nome);
-                Console.WriteLine(x.valor);
-               
-            }
+            ListaAdj.Dijkstra("V2");
 
-            foreach (Aresta x in ListaAdj.ListArestasVertice("V2"))
-            {
-                Console.WriteLine(x.vertice.nome);
-                Console.WriteLine(x.valor);
-
-            }
-
-
-            ListaAdj.DeleteVertice("V2");
-
-            foreach (Aresta x in ListaAdj.ListArestasVertice("V1"))
-            {
-                Console.WriteLine(x.vertice.nome);
-                Console.WriteLine(x.valor);
-
-            }
 
             foreach (Vertice x in ListaAdj.ListarVertices())
             {
-                Console.WriteLine(x.nome);
+                Console.WriteLine("{0} - {1}",x.nome,x.custo);
             }
 
 
