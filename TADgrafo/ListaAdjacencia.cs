@@ -11,7 +11,6 @@ namespace TADgrafo
 
         private List<Vertice> Listaadjacencia = new List<Vertice>();
 
-
         public void AddVertice(string nome)
         {
 
@@ -49,7 +48,6 @@ namespace TADgrafo
             vertice2.GetArestas().Remove(aresta2);
 
         }
-
         
         public void DeleteVertice(string Nvertice)
         {
@@ -70,7 +68,6 @@ namespace TADgrafo
 
         }
 
-
         public List<Aresta> ListArestasVertice(string Nvertice)
         {
 
@@ -78,7 +75,6 @@ namespace TADgrafo
 
             return vertice.GetArestas();
             
-
         }
 
         public bool Adjacente(string nvertice, string nvertice2)
@@ -96,7 +92,6 @@ namespace TADgrafo
 
                 return false;
         }
-
 
         public List<Vertice> ListarVertices()
         {
@@ -129,17 +124,20 @@ namespace TADgrafo
 
         }
 
-        public void Dijkstra(string nvertice)
+        public List<Vertice> Dijkstra(string nvertice)
         {
+            ReiniciarValores();
 
-            Vertice verticeinicial = Listaadjacencia.Find(x => x.nome == nvertice);
+            List<Vertice> ListaTemporaria = Listaadjacencia;
+
+            Vertice verticeinicial = ListaTemporaria.Find(x => x.nome == nvertice);
 
             verticeinicial.custo = 0;
 
             while (true)
             {
 
-                List<Vertice> ListaMenores = Listaadjacencia.FindAll(x => x.trancado == false);
+                List<Vertice> ListaMenores = ListaTemporaria.FindAll(x => x.trancado == false);
 
                 if (ListaMenores.Any() == false)
                 {
@@ -169,9 +167,63 @@ namespace TADgrafo
                     }
                 }
 
-            } 
+            }
+
+            return ListaTemporaria;
+
         }
 
+        public List<Vertice> MelhorPontoAMB()
+        {
+
+            int Nvertices = this.Listaadjacencia.Count();
+            List<Vertice> VerticesTemp = this.Listaadjacencia;
+            List<Vertice> MenorCaminhoAtual;
+            string NomeVerticeMelhor = null;
+            int MenorCusto = int.MaxValue, MenorCustoAtual;
+
+            for (int x = 0; x < Nvertices; x++)
+            {
+                
+                MenorCaminhoAtual = Dijkstra(VerticesTemp[x].nome);
+                MenorCustoAtual = SomatoriaCustos(MenorCaminhoAtual);
+
+                if(MenorCustoAtual < MenorCusto)
+                {
+                    MenorCusto = MenorCustoAtual;
+                    NomeVerticeMelhor = VerticesTemp[x].nome;
+                }
+
+            }
+
+            return Dijkstra(NomeVerticeMelhor);
+
+        }
+        public void ReiniciarValores()
+        {
+            for (int x =0; x < Listaadjacencia.Count(); x++)
+            {
+                Listaadjacencia[x].custo = int.MaxValue;
+                Listaadjacencia[x].trancado = false;
+            }
+
+        }
+
+        public int SomatoriaCustos(List<Vertice> ListaVertices)
+        {
+
+            int Nvertices = ListaVertices.Count();
+            int SomatoriaCustosV = 0;
+
+            for (int x = 0; x < Nvertices; x++)
+            {
+
+                SomatoriaCustosV = ListaVertices[x].custo + SomatoriaCustosV;
+
+            }
+
+            return SomatoriaCustosV;
+        }
 
     }
 }

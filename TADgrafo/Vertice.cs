@@ -15,7 +15,6 @@ namespace TADgrafo
         public int custo { get; set; }
         public bool saida { get; set; }
 
-        
         public Vertice(string nome)
         {
             this.nome = nome;
@@ -40,12 +39,9 @@ namespace TADgrafo
 
         }
 
-
         public int Grau()
         {
             return Arestas.Count();
         }
-
-
     }
 }

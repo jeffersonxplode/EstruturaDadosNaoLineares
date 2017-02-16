@@ -21,7 +21,6 @@ namespace TADgrafo
             ListaAdj.AddVertice("V4");
             ListaAdj.AddVertice("V5");
 
-
             ListaAdj.AddArestaVertices("V0", "V1", 3);
             ListaAdj.AddArestaVertices("V0", "V2", 4);
             ListaAdj.AddArestaVertices("V1", "V2", 2);
@@ -30,14 +29,13 @@ namespace TADgrafo
             ListaAdj.AddArestaVertices("V4", "V5", 11);
             ListaAdj.AddArestaVertices("V3", "V5", 5);
 
-            ListaAdj.Dijkstra("V2");
+            //ListaAdj.Dijkstra("V0");
 
-
-            foreach (Vertice x in ListaAdj.ListarVertices())
+            foreach (Vertice x in ListaAdj.MelhorPontoAMB())
             {
                 Console.WriteLine("{0} - {1}",x.nome,x.custo);
             }
-
+            
 
             Console.ReadKey();
 
